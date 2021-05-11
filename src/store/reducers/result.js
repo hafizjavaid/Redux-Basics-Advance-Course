@@ -1,4 +1,7 @@
-import * as actionTypes from '../actions'
+import * as actionTypes from "../actions/actions";
+
+// import {updateObject}
+import { updateObject } from "../utility";
 const initialState = {
   results: [],
 };
@@ -6,18 +9,17 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   // eslint-disable-next-line
   switch (action.type) {
- 
     case actionTypes.STORE_RESULT:
-      return {
-        ...state,
+      return updateObject(state, {
         results: state.results.concat({ id: new Date(), value: action.result }),
-      };
+      });
+      
+
     case actionTypes.DEL_RESULT:
-        const updatedArray = state.results.filter(result=> result.id !== action.id);
-        return {
-          ...state,
-          results: updatedArray,
-        };
+      const updatedArray = state.results.filter(
+        (result) => result.id !== action.id
+      );
+      return updateObject(state, { results: updatedArray });
   }
 
   return state;
